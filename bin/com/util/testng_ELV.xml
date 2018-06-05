@@ -1,0 +1,62 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ELEVATORS">
+<listeners>
+    <listener class-name="listener.TestsListenerAdapter" />
+</listeners>
+
+
+<test name="ElevAlterationTest">
+    <classes>
+        <class name="com.testcases.ElevAlterationTest" ></class>  
+    </classes>
+</test>
+
+<test name="ElevDismantleTest">
+    <classes>
+        <class name="com.testcases.ElevDismantleTest" ></class>  
+    </classes>
+</test>
+
+<test name="ElevNewInstallTest">
+    <classes>
+        <class name="com.testcases.ElevNewInstallTest" ></class>  
+    </classes>
+</test>
+
+<test name="ElevNewOtherTest">
+    <classes>
+        <class name="com.testcases.ElevNewOtherTest" ></class>  
+    </classes>
+</test>
+
+<test name="ElevPtoFTest">
+    <classes>
+        <class name="com.testcases.ElevPtoFTest" ></class>  
+    </classes>
+</test>
+
+<test name="ElevRemoveTest">
+    <classes>
+        <class name="com.testcases.ElevRemoveTest" ></class>  
+    </classes>
+</test>
+
+<test name="ElevSignOffTest">
+    <classes>
+        <class name="com.testcases.ElevSignOffTest" ></class>  
+    </classes>
+</test>
+
+<test name="ElevRenewPermitTest">
+    <classes>
+        <class name="com.testcases.ElevRenewPermitTest" ></class>  
+    </classes>
+</test>
+
+
+
+
+
+
+
+</suite>
