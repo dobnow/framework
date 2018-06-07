@@ -115,9 +115,6 @@ public class DobTR1Page extends TestBase {
 	@FindBy(xpath = Constants.global_loading_spinner)
 	public WebElement global_loading_spinner;
 
-	public static String sCurrentLine;
-	public static FileReader fr = null;
-	public static BufferedReader txtReader = null;
 	String add_button;
 
 	public void specialInspection(String tr1) {
@@ -139,7 +136,7 @@ public class DobTR1Page extends TestBase {
 				email(OR_PROPERTIES.getProperty("special_inspector_email"));
 				select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
 				type(Constants.tr1_agency_number, data[3]);
-				keyPressTab(Constants.tr1_agency_number);
+				//keyPressTab(Constants.tr1_agency_number);
 				wait(2);
 				if (count(Constants.green_valid_label) > 0)
 					break;
@@ -204,69 +201,7 @@ public class DobTR1Page extends TestBase {
 			reportPass("Success");
 		}
 	}
-	public void OLDspecialInspectionPlumbing(String tr1) {
-		if (!tr1.equals("")) {
-			String[] data = tr1.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 specialInspectionPlumbing");
-			filterJob(user);
-			test = rep.startTest("TR1 Inspection");
-			test.log(LogStatus.INFO, " specialInspectionPlumbing");
-			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_special_inspector);
-			if(count(Constants.edit_icon) > 0) {
-				for (int i = 1; i <= count(Constants.edit_icon); i++) {
-					test.log(LogStatus.INFO, " specialInspectionPlumbing");
-					click("(//i[@class='fa fa-edit'])[" + i + "]");
-					click(Constants.inspection_label);
-					email(data[1]);
-					select(Constants.tr1_license_type, data[2]);
-					type(Constants.tr1_agency_number, data[3]);
-					keyPressTab(Constants.tr1_agency_number);
-					wait(2);
-					if (count(Constants.green_valid_label) > 0) {
-						click(Constants.tr1_save_progress_inspection_button);
-						waitInvisible(Constants.tr1_save_progress_inspection_button);
-						waitUntilISpinnersInvisible();
-						waitVisible(Constants.ok_button);
-						verifyNotification(Constants.notification,TEXT_PROPERTIES.getProperty("inspection_requirements_updated"));
-						clickButton("OK");
-						waitInvisible(Constants.ok_button);
-					} else {
-						i--;
-						click(Constants.global_cancel_button);
-					}
-				}
-			}else {
-				for (int i = 1; i <= 20; i++) {
-				waitVisible("//span[text()='Agency No.']");
-				multiClick(Constants.add);
-				click(Constants.tr1_select_requirement_code);
-				type(Constants.tr1_select_requirement_code_field, data[0]);
-				click(Constants.tr1_select_requirement_code_filter);
-				click(Constants.inspection_label);
 
-				email(data[1]);
-				select(Constants.tr1_license_type, data[2]);
-				type(Constants.tr1_agency_number, data[3]);
-				keyPressTab(Constants.tr1_agency_number);
-				wait(2);
-				if (count(Constants.green_valid_label) > 0) {
-					click(Constants.tr1_save_progress_inspection_button);
-					waitInvisible(Constants.tr1_save_progress_inspection_button);
-					waitUntilISpinnersInvisible();
-					waitVisible(Constants.ok_button);
-					verifyNotification(Constants.notification,TEXT_PROPERTIES.getProperty("inspection_requirements_updated"));
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-					break;
-				} else
-					i--;
-					click(Constants.global_cancel_button);
-				}
-			}
-			reportPass("Success");
-		}
-	}
 	public void specialInspectionSignNew(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
@@ -287,7 +222,7 @@ public class DobTR1Page extends TestBase {
 					email(data[1]);
 					select(Constants.tr1_license_type, data[2]);
 					type(Constants.tr1_agency_number, data[3]);
-					keyPressTab(Constants.tr1_agency_number);
+					//keyPressTab(Constants.tr1_agency_number);
 					wait(2);
 					if (count(Constants.green_valid_label) > 0) {
 						click(Constants.tr1_save_progress_inspection_button);
@@ -327,7 +262,7 @@ public class DobTR1Page extends TestBase {
 					email(data[1]);
 					select(Constants.tr1_license_type, data[2]);
 					type(Constants.tr1_agency_number, data[3]);
-					keyPressTab(Constants.tr1_agency_number);
+					//keyPressTab(Constants.tr1_agency_number);
 					wait(2);
 					if (count(Constants.green_valid_label) > 0) {
 						click(Constants.tr1_save_progress_inspection_button);
@@ -367,7 +302,7 @@ public class DobTR1Page extends TestBase {
 					email(data[1]);
 					select(Constants.tr1_license_type, data[2]);
 					type(Constants.tr1_agency_number, data[3]);
-					keyPressTab(Constants.tr1_agency_number);
+					//keyPressTab(Constants.tr1_agency_number);
 					wait(2);
 					if (count(Constants.green_valid_label) > 0) {
 						click(Constants.tr1_save_progress_inspection_button);
@@ -375,7 +310,7 @@ public class DobTR1Page extends TestBase {
 						waitUntilISpinnersInvisible();
 						waitVisible(Constants.ok_button);
 						verifyNotification(Constants.notification,
-								TEXT_PROPERTIES.getProperty("inspection_requirements_updated"));
+								TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
 						clickButton("OK");
 						waitInvisible(Constants.ok_button);
 						break;
@@ -405,7 +340,7 @@ public class DobTR1Page extends TestBase {
 					email(data[1]);
 					select(Constants.tr1_license_type, data[2]);
 					type(Constants.tr1_agency_number, data[3]);
-					keyPressTab(Constants.tr1_agency_number);
+					//keyPressTab(Constants.tr1_agency_number);
 					wait(2);
 					if (count(Constants.green_valid_label) > 0) {
 						click(Constants.tr1_save_progress_inspection_button);
@@ -436,7 +371,7 @@ public class DobTR1Page extends TestBase {
 					email(data[1]);
 					select(Constants.tr1_license_type, data[2]);
 					type(Constants.tr1_agency_number, data[3]);
-					keyPressTab(Constants.tr1_agency_number);
+					//keyPressTab(Constants.tr1_agency_number);
 					wait(2);
 					if (count(Constants.green_valid_label) > 0) {
 						click(Constants.tr1_save_progress_inspection_button);
@@ -465,7 +400,7 @@ public class DobTR1Page extends TestBase {
 						email(data[1]);
 						select(Constants.tr1_license_type, data[2]);
 						type(Constants.tr1_agency_number, data[3]);
-						keyPressTab(Constants.tr1_agency_number);
+						//keyPressTab(Constants.tr1_agency_number);
 						wait(2);
 						if (count(Constants.green_valid_label) > 0) {
 							click(Constants.tr1_save_progress_inspection_button);
@@ -486,131 +421,6 @@ public class DobTR1Page extends TestBase {
 				}
 			}
 			reportPass("Success");
-		}
-	}
-
-/*	public void specialInspectionSign(String tr1) {
-		if (!tr1.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 specialInspectSign");
-			filterJob(user);
-			test = rep.startTest("TR1 Inspection");
-			click(Constants.tr1_technical_report_step);
-			check(Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_progress_inspector);
-			for (int i = 1; i < 100; i++) {
-				click(Constants.tr1_add_link_spec_sign);
-				click(Constants.tr1_select_requirement_code);
-				String[] data = tr1.split(" :: ");
-				type(Constants.tr1_select_requirement_code_field, data[0]);
-				click(Constants.tr1_select_requirement_code_filter);
-				click(Constants.inspection_label);
-				
-				multiClick("//input[@id='txtInspecterEmail']");
-				waitClickableOr("//input[@id='txtInspecterEmail']", "(//input[@id='txtInspecterEmail'])[2]");
-				try {
-					driver.findElement(By.xpath("//input[@id='txtInspecterEmail']")).sendKeys(tr1_user);
-				} catch (Exception e) {
-					driver.findElement(By.xpath("(//input[@id='txtInspecterEmail'])[2]")).sendKeys(tr1_user);
-				}
-				
-				email(OR_PROPERTIES.getProperty("user_email"));
-				select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
-				type(Constants.tr1_agency_number, data[3]);
-				keyPressTab(Constants.tr1_agency_number);
-				waitVisible("//*[@id='specialProgressInspSection']/div[4]/div/i");
-				if (count("//i[@class='fa fa-check']") > 0)
-					break;
-				else
-					click(Constants.global_cancel_button);
-			}
-			tr1_save_progress_inspection_button.click();
-			waitInvisible(Constants.tr1_save_progress_inspection_button);
-			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ok_button);
-			assertNotification(TEXT_PROPERTIES.getProperty("inspection_requirements_added"),
-					"specialInspectionCategory");
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
-			reportPass("Success");
-		}
-	}*/
-
-	public void XprogressInspectionCategory(String tr1, String uploadfile) {
-		if (!tr1.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 progressInspectionCategory");
-			filterJob(OR_PROPERTIES.getProperty("progress_inspector_email"));
-			test = rep.startTest("TR1 Progress Signature");
-			click(Constants.tr1_technical_report_step);
-			check(Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_progress_inspector);
-			for (int i = 1; i < 100; i++) {
-				click(Constants.tr1_edit_progress_inspection_category);
-				email(OR_PROPERTIES.getProperty("progress_inspector_email"));
-				select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("progress_inspector_lisence"));
-				if (text(Constants.tr1_license_type).contains(OR_PROPERTIES.getProperty("progress_inspector_lisence")))
-					break;
-				else
-					click(Constants.global_cancel_button);
-			}
-			check(Constants.tr1_i_take_responcibility);
-			check(Constants.tr1_i_understand_my_failure_to_file);
-			check(Constants.tr1_i_understand_and_agree);
-			click(Constants.tr1_save_progress_inspection_button);
-			waitInvisible(Constants.tr1_save_progress_inspection_button);
-			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ok_button);
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("inspection_requirements_updated"));
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
-			click(Constants.upload_progress_inspector_file);
-			send(Constants.browse_button, Constants.uploadFolder + uploadfile);
-			click(Constants.tr1_upload_button);
-			waitInvisible(Constants.tr1_please_wait_message);
-			waitVisible(Constants.tr1_upload_succesfull_message);
-			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ok_button);
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
-			reportPass("Success");
-
-		}
-	}
-	
-	public void OLDprogressInspecSig(String progress_inspector_sign_upload) {
-		if (!progress_inspector_sign_upload.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 OLDprogressInspecSig");
-			for (int i = 1; i < 5; i++) {
-				filterJob(OR_PROPERTIES.getProperty("special_inspector_email"));
-				test = rep.startTest("TR1 OLDprogressInspecSig");
-				click(Constants.tr1_technical_report_step);
-				check(Constants.tr1_are_you_special_inspector);
-				check(Constants.tr1_are_you_progress_inspector);
-				click("(//i[@class='fa fa-edit'])[last()]");
-				email(OR_PROPERTIES.getProperty("progress_inspector_email"));
-				select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("progress_inspector_lisence"));
-				check(Constants.tr1_i_take_responcibility);
-				check(Constants.tr1_i_understand_my_failure_to_file);
-				check(Constants.tr1_i_understand_and_agree);
-				click(Constants.global_save_form_button);
-				waitInvisible(Constants.global_save_form_button);
-				waitUntilISpinnersInvisible();
-				waitVisible(Constants.ok_button);
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
-				if (count(Constants.identified_yes_label) > 1)
-					break;
-			}
-			click(Constants.upload_document_icon);
-			send(Constants.tr1_browse_button, Constants.uploadFolder + progress_inspector_sign_upload);
-			click(Constants.tr1_upload_button);
-			waitUntilElementInVisible(Constants.tr1_please_wait_message, 30);
-			waitUntilElementVisible(Constants.tr1_upload_succesfull_message, 30);
-			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ok_button);
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
 		}
 	}
 
