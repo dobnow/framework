@@ -34,8 +34,6 @@
 	<classpathentry kind="lib" path="C:/framework/Selenium JARS/derbyclient.jar"/>
 	<classpathentry kind="lib" path="C:/framework/Selenium JARS/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="C:/framework/Selenium JARS/eclipselink-2.0.0.jar"/>
-	<classpathentry kind="lib" path="C:/framework/Selenium JARS/extentreports-2.40.1.jar"/>
-	<classpathentry kind="lib" path="C:/framework/Selenium JARS/extentreports-2.40.2.jar"/>
 	<classpathentry kind="lib" path="C:/framework/Selenium JARS/extentreports-2.41.2.jar"/>
 	<classpathentry kind="lib" path="C:/framework/Selenium JARS/flash-selenium.jar"/>
 	<classpathentry kind="lib" path="C:/framework/Selenium JARS/freemarker-2.3.23.jar"/>
