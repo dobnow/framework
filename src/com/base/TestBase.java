@@ -978,6 +978,8 @@ public class TestBase {
 				wait(3);
 				while(count("//div[@class='alert alert-info']") > 0) {
 					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+					refreshPage();
 					type(Constants.welcome_email, login_email);
 					type(Constants.welcome_password, OR_PROPERTIES.getProperty("password"));
 					click(Constants.welcome_login_button);
