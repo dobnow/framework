@@ -379,7 +379,7 @@ public class DobTR1Page extends TestBase {
 						waitUntilISpinnersInvisible();
 						waitVisible(Constants.ok_button);
 						verifyNotification(Constants.notification,
-								TEXT_PROPERTIES.getProperty("inspection_requirements_updated"));
+								TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
 						clickButton("OK");
 						waitInvisible(Constants.ok_button);
 						break;
@@ -408,7 +408,7 @@ public class DobTR1Page extends TestBase {
 							waitUntilISpinnersInvisible();
 							waitVisible(Constants.ok_button);
 							verifyNotification(Constants.notification,
-									TEXT_PROPERTIES.getProperty("inspection_requirements_updated"));
+									TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
 							clickButton("OK");
 							waitInvisible(Constants.ok_button);
 							break;
