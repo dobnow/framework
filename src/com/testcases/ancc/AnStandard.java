@@ -81,7 +81,11 @@ public class AnStandard extends TestBase {
 			DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 			DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 			
-
+			CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
+			CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
+			pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));
+			task_form.isuePermit(data.get("qa_administrator"));
+			successMessage(data.get("description"));
 
 			dash.selectWorkType(data.get("work_type"));
 			pw1.locationImfo(data.get("address"));
@@ -171,19 +175,27 @@ public class AnStandard extends TestBase {
 		task_form.qaSuperviser(data.get("qa_superviser"));
 	}
 
-	// QA ADMIN ACCEPT PERMIT DOCUMENTSS
+	// QA ADMIN ACCEPT PERMIT DOCUMENTSS / ISSUE PERMIT
 	@Test(priority = 18, dataProvider = "getTestData", dependsOnMethods = {"QaSuperviserTest"})
 	public void QaAdministratorAcceptPW2Test(Hashtable<String, String> data) {
+		
 		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
+		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
 		pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));
+		task_form.isuePermit(data.get("qa_administrator"));
+		successMessage(data.get("description"));
+		
+/*		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
+		pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));*/
+		
 	}
 
-	// ISSUE PERMIT
+/*	// ISSUE PERMIT
 	@Test(priority = 19, dataProvider = "getTestData", dependsOnMethods = {"QaAdministratorAcceptPW2Test"})
 	public void IssuePermitTest(Hashtable<String, String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
 		task_form.isuePermit(data.get("qa_administrator"));
 		successMessage(data.get("description"));
 	}
-
+*/
 }
