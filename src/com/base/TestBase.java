@@ -1002,9 +1002,11 @@ public class TestBase {
 			test.log(LogStatus.INFO, "Login to CRM as " + user_name);
 			waitForPageToLoad();
 			if (count(Constants.crm_username_label) > 0) {
-				if (text(Constants.crm_username_label).contains(user_name))
+				driver.manage().window().maximize();
+				if (text(Constants.crm_username_label).contains(user_name)) {
 					driver.get(crm_url);
-				break;
+					break;
+				}
 			}
 			if (count(Constants.crm_username_label) < 1) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -1135,8 +1137,6 @@ public class TestBase {
 		driver.switchTo().frame("contentIFrame0");
 		waitClickableOr("//nobr[text()='Accepted']", "//nobr[text()='Submitted']");
 	}
-	
-
 
 	public void filterJob(String user_name) {
 		String search_results_xpath = Constants.found_job_part_one +JOB_NUMBER.getProperty("job_number") +Constants.found_job_part_two;
@@ -1145,11 +1145,15 @@ public class TestBase {
 			type(Constants.job_number_filter, JOB_NUMBER.getProperty("job_number"));
 		}
 		test = rep.startTest("Filter job " + JOB_NUMBER.getProperty("job_number"));
-		click(Constants.click_to_view_icon);
-		click(Constants.ok_button);
-		waitInvisible(Constants.global_notification_ok_button);
-		waitUntilISpinnersInvisible();
-		scrollAllWayUp();
+		if(count(Constants.click_to_view_icon) > 0) {
+			click(Constants.click_to_view_icon);
+			click(Constants.ok_button);
+			waitInvisible(Constants.global_notification_ok_button);
+			waitUntilISpinnersInvisible();
+			scrollAllWayUp();
+		}
+		else
+			reportFailure("filterJob - unable to filer job");
 	}
 	
 	public void filterJob(String user_name, String job_number) {

@@ -1151,6 +1151,7 @@ public class CrmTaskFormPage extends TestBase {
 			wait(1);
 			click(Constants.submit_button);
 			ifAlertExistAccept();
+			ifAlertExistAccept();
 			waitInvisible(Constants.submit_button);
 			driver.switchTo().frame("contentIFrame0");
 			filterJob(user);
