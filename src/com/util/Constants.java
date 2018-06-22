@@ -3,22 +3,8 @@ package com.util;
 import java.util.Hashtable;
 
 public class Constants {
-	//SavingAccounts/SavingAccount[ServiceOnline/text()='yes' or ServiceByPhone/text()='yes']
-	//h3[@class='ms-crm-Form'][text()='My Jobs']/following::label[text()='Search for records']
-	// //input[@type='checkbox'][contains(@value,'/')]
-/*	List<WebElement> el = driver.findElements(By.xpath("//*"));
-    for ( WebElement e : el ) {
-     System.out.println( e.getTagName() +" " +e.getText());
-    }*/
-	
-/*	String[] elements = { "a","a","a","a" };   
-	for (String s: elements) {           
-	        System.out.println(s); 
-	    }*/
-	
-	//*[contains(@id, 'idNumber1') or contains(@id, 'idNumber2')]
+
 //PATHs
-	
 	public static String TEXT_PROPERTIES = System.getProperty("user.dir")+"//src//com//config//text.properties";
 	public static String CONFIG_FILE_PATH = System.getProperty("user.dir")+"//src//com//config/config.properties";
 	public static String OR_PROPERTIES = System.getProperty("user.dir")+"//src//com//config//OR.properties";
@@ -27,11 +13,13 @@ public class Constants {
 
 	public static String firefoxPath = System.getProperty("user.home")+"\\AppData\\Local\\Mozilla Firefox\\firefox.exe"; 
 	public static String testCases = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases.xlsx";
+	public static String testCasesSubs = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases subs.xlsx";
 	
-	public static String testCasesPlm = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Plumbing.xlsx";
+	
+	public static String testCasesPlm = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Pl.xlsx";
 	public static String testCasesFab4 = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Fab4.xlsx";
-	public static String testCasesesEctrical = System.getProperty("user.dir")+"\\src\\com\\data\\electrical\\Test Cases.xlsx";
-	public static String testCasesesElevator = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elev.xlsx";
+	public static String testCasesesEctrical = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elc.xlsx";
+	public static String testCasesesElevator = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elv.xlsx";
 	public static String testCasesesBoilers = System.getProperty("user.dir")+"\\src\\com\\data\\boilers\\Test Cases.xlsx";
 	public static String chromePath = System.getProperty("user.home")+"\\drivers\\chromedriver.exe";
 	public static String iePath = System.getProperty("user.home")+"\\drivers\\IEDriverServer.exe";
@@ -136,7 +124,7 @@ public class Constants {
 	
 	public static final String resubmit_button = "(//button[contains(.,'Resubmit')])[1]";
 	public static final String application_preview_label = "//h4[contains(.,'view')]";
-	public static final String return_to_filing_view = "//i[@class='fa fa-repea']";
+	public static final String return_to_filing_view = "//button[contains(text(),'Return to filing')]"; // ng-click="cancel()"><i class="fa fa-repeat
 	public static final String number_of_pages_label = "//span[@class='label pull-right portal-fonts']";
 	public static final String number_of_pages = "//span[contains(.,'Page :    /')]";
 	public static final String click_go_next_button = "//button[@ng-click='goNext()']";
@@ -159,7 +147,7 @@ public class Constants {
 	public static final String dob_now_build_component = "//img[@src='images/build-logo-button.png']";
 	public static final String dob_now_safety_component = "//img[@src='images/safety-button-logo.png']";
 // DASHBOARD 
-	public static final String job_filing_button = "//button[@class='btn btn-md btn-primary'][@ng-click='NewAppOptions()']";
+	public static final String job_filing_button = "//button[@ng-click='NewAppOptions()']";
 	public static final String job_filing_label = "//span[contains(.,'Job Filing Id')]";
 	public static final String job_filing_modal = "//div[@class='row col-xs-12 col-sm-12 col-md-12 modal-body portal-fonts']";
 	
@@ -1447,7 +1435,7 @@ public class Constants {
 	public static final String manufacturer_address = "//input[@id='txtManufacturerAddress']";
 	public static final String el_save_modal_button = "//span[@class='glyphicon glyphicon-ok-sign']";
 	public static final String el_gi_confirm_save_button = "//button[@ng-click='ngDialogData.SaveED16AFiling(false)']";
-	public static final String el_job_label	= "//*[@id='fixedSideNav']/nav/div[2]/div/h3/span/strong";
+	public static final String el_job_label	= "//span[@class='pad-left-10']";
 // SCOPE OF WORK	
 	public static final String el_scope_of_work_tab = "//a[contains(.,'Electrical Scope of Work')]";
 	public static final String el_boiler_controls_tab= "//div[@slidediv='BoilerControls']";
@@ -1479,7 +1467,7 @@ public class Constants {
 	public static final String el_minor_work_floor = "(//input[@class='ui-grid-filter-input ng-pristine ng-untouched ng-valid'])[2]";
 	public static final String el_minor_work_device = "(//input[@class='ui-grid-filter-input ng-pristine ng-untouched ng-valid'])[3]";
 	public static final String el_first_document = "//a[@ng-click='grid.appScope.downloadDocument(row)']";
-	public static final String el_application_involve_new_or_amended_yes = "//input[@data-validationmsg='Owner Authorization New or Amended']";
+	public static final String el_application_involve_new_or_amended_yes = "//input[@data-validationmsg='Owner Authorization New or Amended'][@value='true']";
 	public static final String el_i_undersigned= "//input[@id='ApplicantAuthorizationCheckPW1']";
 	public static final String el_this_electrical_permit_involves = "//input[@id='DesignApplicantStatementsMainCheckPW1']";
 	public static final String el_this_electrical_permit_includes = "//input[@ng-change='setED16AOwnerNewAmendedStatements()']";
@@ -1574,6 +1562,7 @@ public class Constants {
 	public static final String DOBTESTING123 = "DOBTESTING123@GMAIL.COM";
 	public static final String PROFENG = "Professional Engineer";
 	public static final String DOBELVDIRECTOR = "DOBELVDIRECTOR@GMAIL.COM";
+	public static final String DOBELECTRICIAN8 = "DOBELECTRICIAN8@GMAIL.COM";
 	
 	public static final String SGNHNGR = "Sign Hanger";
 	
@@ -1608,5 +1597,15 @@ public class Constants {
 		return table;
 	}*/	
 	
-	
+	//SavingAccounts/SavingAccount[ServiceOnline/text()='yes' or ServiceByPhone/text()='yes']
+	// //input[@type='checkbox'][contains(@value,'/')]
+/*	List<WebElement> el = driver.findElements(By.xpath("//*"));
+    for ( WebElement e : el ) {
+     System.out.println( e.getTagName() +" " +e.getText());
+    }*/
+/*	String[] elements = { "a","a","a","a" };   
+	for (String s: elements) {           
+	        System.out.println(s); 
+	    }*/
+	//*[contains(@id, 'idNumber1') or contains(@id, 'idNumber2')]
 }

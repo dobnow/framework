@@ -1,85 +1,87 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="DOB">
+<suite name="ELECTRICAL" allow-return-values="true">
 <listeners>
     <listener class-name="listener.TestsListenerAdapter" />
 </listeners>
 
+
+
 <test name="ElFieldSignInspectionTest">
     <classes>
-        <class name="com.testcases.ElFieldSignInspectionTest" ></class>  
+        <class name="com.testcases.elc.ElFieldSignInspectionTest"></class>  
     </classes>
 </test>
 
-<test name="ElLegalizationMinorTest">
-    <classes>
-        <class name="com.testcases.ElLegalizationMinorTest" ></class>  
-    </classes>
-</test>
 
-<test name="ElLegalizationNewInstallTest">
-    <classes>
-        <class name="com.testcases.ElLegalizationNewInstallTest" ></class>  
-    </classes>
-</test>
 
 <test name="ElMinorWorkTest">
     <classes>
-        <class name="com.testcases.ElMinorWorkTest" ></class>  
+        <class name="com.testcases.elc.ElMinorWorkTest"></class>  
     </classes>
 </test>
 
 <test name="ElNewInstallTest">
     <classes>
-        <class name="com.testcases.ElNewInstallTest" ></class>  
+        <class name="com.testcases.elc.ElNewInstallTest"></class>  
     </classes>
 </test>
 
 <test name="ElOnElSubsTest">
     <classes>
-        <class name="com.testcases.ElOnElSubsTest" ></class>  
+        <class name="com.testcases.elc.ElOnElSubsTest"></class>  
     </classes>
 </test>
 
 <test name="ElOnOtherSubsTest">
     <classes>
-        <class name="com.testcases.ElOnOtherSubsTest" ></class>  
+        <class name="com.testcases.elc.ElOnOtherSubsTest"></class>  
     </classes>
 </test>
 
 <test name="ElPaaTest">
     <classes>
-        <class name="com.testcases.ElPaaTest" ></class>  
+        <class name="com.testcases.elc.ElPaaTest"></class>  
     </classes>
 </test>
 
 
 <test name="ElPaByCheckTest">
     <classes>
-        <class name="com.testcases.ElPaByCheckTest" ></class>  
+        <class name="com.testcases.elc.ElPaByCheckTest"></class>  
     </classes>
 </test>
 
 <test name="ElPaByCreditCardTest">
     <classes>
-        <class name="com.testcases.ElPaByCreditCardTest" ></class>  
+        <class name="com.testcases.elc.ElPaByCreditCardTest"></class>  
     </classes>
 </test>
 
 <test name="ElSubsPayByCheckTest">
     <classes>
-        <class name="com.testcases.ElSubsPayByCheckTest" ></class>  
+        <class name="com.testcases.elc.ElSubsPayByCheckTest"></class>  
     </classes>
 </test>
 
 <test name="ElSubsPayByCreditCardTest">
     <classes>
-        <class name="com.testcases.ElSubsPayByCreditCardTest" ></class>  
+        <class name="com.testcases.elc.ElSubsPayByCreditCardTest"></class>  
     </classes>
 </test>
 
 
 
+<test name="ElLegalizationMinorTest">
+    <classes>
+        <class name="com.testcases.elc.ElLegalizationMinorTest"></class>  
+    </classes>
+</test>
 
+<test name="ElLegalizationNewInstallTest">
+    <classes>
+        <class name="com.testcases.elc.ElLegalizationNewInstallTest"></class>  
+    </classes>
+</test>
 
 
 

@@ -38,6 +38,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -145,7 +147,7 @@ public class TestBase {
 			props.setProperty("browser", browser);
 			fileName.close();
 			FileOutputStream outFileName = new FileOutputStream(Constants.CONFIG_FILE_PATH);
-			props.store(outFileName, " browsers ::  IE  Chrome  Mozilla # environments ::  443 444 8085");
+			props.store(outFileName, " BROWSERS::  IE  Chrome  Mozilla # ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4");
 			outFileName.close();
 			// props.load(fileName);
 			FileInputStream fs = new FileInputStream(Constants.CONFIG_FILE_PATH);
@@ -243,11 +245,10 @@ public class TestBase {
 
 			else if (CONFIG.getProperty("browser").equals("IE")) {
 				System.setProperty("webdriver.ie.driver", Constants.iePath);
-/*				DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+				DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
 				capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,	true);
 				capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-				System.setProperty("webdriver.ie.driver", Constants.iePath);
-				driver = new InternetExplorerDriver(capabilities);*/
+				capabilities.setCapability("silent", true);
 				driver = new InternetExplorerDriver();
 				driver.manage().window().maximize();
 			}
@@ -307,6 +308,10 @@ public class TestBase {
 			pw2_user = Constants.MRCTEST003;
 			pw2_lic = Constants.MSTRPLMR;
 		}
+		if (CONFIG.getProperty("env").contains("electrical")) {
+			user = Constants.DOBELECTRICIAN8;
+
+		}
 		if (CONFIG.getProperty("env").contains("elevators")) {
 			user = Constants.DOBELVDIRECTOR;
 			owner = Constants.APPLEROME18;
@@ -344,7 +349,7 @@ public class TestBase {
 				props.setProperty(property, value);
 				fileName.close();
 				FileOutputStream outFileName = new FileOutputStream(Constants.OR_PROPERTIES);
-				props.store(outFileName, "");
+				props.store(outFileName, "# BROWSERS::  IE  Chrome  Mozilla # ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4");
 				outFileName.close();
 				// props.load(fileName);
 				FileInputStream fs = new FileInputStream(Constants.OR_PROPERTIES);
@@ -972,6 +977,20 @@ public class TestBase {
 			for (int i = 1; i < 100; i++) {
 				navigate(dob_now_url);
 				test = rep.startTest("Login to portal");
+				
+				if(CONFIG.getProperty("browser").contains("IE")) {
+					if(!CONFIG.getProperty("env").contains("8085")) {
+						while (count("//a[@id='overridelink']") > 0) {
+							driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+							wait(5);
+							if (count("//a[@name='overridelink']") == 0)
+								break;
+							refreshPage();
+						}
+					}
+				}
+					
+				
 				type(Constants.welcome_email, login_email);
 				type(Constants.welcome_password, OR_PROPERTIES.getProperty("password"));
 				click(Constants.welcome_login_button);
@@ -1196,7 +1215,7 @@ public class TestBase {
 
 	public void addToProps(String prop_name, String value) {
 		if (!prop_name.equals("")) {
-			test = rep.startTest("Add To Props " +prop_name+"=" +value );
+			test = rep.startTest("Add To Props " +prop_name+ "=" +value );
 			try {
 				FileInputStream fileName = new FileInputStream(Constants.JOB_NUMBER);
 				Properties props = new Properties();
@@ -1204,7 +1223,7 @@ public class TestBase {
 				props.setProperty(prop_name, value);
 				fileName.close();
 				FileOutputStream outFileName = new FileOutputStream(Constants.JOB_NUMBER);
-				props.store(outFileName, "");
+				props.store(outFileName, " BROWSERS::  IE  Chrome  Mozilla # ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4");
 				outFileName.close();
 				// props.load(fileName);
 				FileInputStream fs = new FileInputStream(Constants.JOB_NUMBER);
@@ -1280,6 +1299,7 @@ public class TestBase {
 	}
 
 	public void killDriver() {
+//		setConfigBrowser("Chrome");
 		try {
 //			driver.quit();
 			Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
@@ -1770,8 +1790,7 @@ public class TestBase {
 	}
 
 	public void clickAndWait(String locator_clicked, String locator_present) {
-		int count = 10;
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < 10; i++) {
 			getElement(locator_clicked).click();
 			wait(2);
 			ifAlertExistAccept();
