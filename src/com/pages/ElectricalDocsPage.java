@@ -10,7 +10,7 @@ public class ElectricalDocsPage extends TestBase {
 		if (!upload_file.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** " + "Upload Documents Electrical");
 //			loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
-			filterJob(OR_PROPERTIES.getProperty("electrical_user_email"), JOB_NUMBER.getProperty("job_number_el"));
+			filterJob(OR_PROPERTIES.getProperty("electrical_user_email"), JOB_NUMBER.getProperty("job_number"));
 			test = rep.startTest("Upload Documents");
 			waitUntilISpinnersInvisible();
 			click(Constants.documents_step);
@@ -21,7 +21,7 @@ public class ElectricalDocsPage extends TestBase {
 			for (int i = 1; i <= number_of_uploads; i++) {
 				String document_xpath = Constants.doc_upload_xpath_part1 + i + Constants.doc_upload_xpath_part2;
 				click(document_xpath);
-				send(Constants.doc_browse_button, Constants.uploadFolder + upload_file);
+				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
 				click(Constants.doc_upload_button);
 				waitInvisible(Constants.doc_please_wait_message);
 				click(Constants.doc_document_uploaded_ok_button);

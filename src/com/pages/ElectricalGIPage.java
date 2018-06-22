@@ -124,7 +124,7 @@ public class ElectricalGIPage extends TestBase {
 				radio(Constants.el_gi_job_is_this_joint_venture_yes);
 			if(joint_venue.equals("No"))
 				radio(Constants.el_gi_job_is_this_joint_venture_no);
-	 		type(Constants.el_gi_building_use_type, use_type);
+			select(Constants.el_gi_building_use_type, use_type);
 		}
 	}
 
@@ -172,13 +172,13 @@ public class ElectricalGIPage extends TestBase {
 	 		String emailpreview = Constants.email_xpath_part1 + OR_PROPERTIES.getProperty("electical_applicant_email") + Constants.email_xpath_part2;
  			for (int i = 1; i < 100; i++) {
 			clear(Constants.el_gi_applicant_email);
-			type(Constants.el_gi_applicant_email, OR_PROPERTIES.getProperty("electical_applicant_email"));
+			send(Constants.el_gi_applicant_email, OR_PROPERTIES.getProperty("electical_applicant_email"));
 			wait(1);
 			if (count(emailpreview) > 0)
 				break;
 		}
 			clickElement(emailpreview);
-			type(Constants.el_gi_applicant_license_type, OR_PROPERTIES.getProperty("applicant_lisence_type_electrical"));
+			select(Constants.el_gi_applicant_license_type, OR_PROPERTIES.getProperty("applicant_lisence_type_electrical"));
 	 	}
 	}
 	
@@ -189,29 +189,30 @@ public class ElectricalGIPage extends TestBase {
 		String emailpreview = Constants.email_xpath_part1 + OR_PROPERTIES.getProperty("electical_applicant_email") + Constants.email_xpath_part2;
 			for (int i = 1; i <= 20; i++) {
 				clear(Constants.el_gi_owner_email);
-				type(Constants.el_gi_owner_email, OR_PROPERTIES.getProperty("electical_applicant_email"));
+				send(Constants.el_gi_owner_email, OR_PROPERTIES.getProperty("electical_applicant_email"));
 				wait(1);
 				if (count(emailpreview) > 0)
 					break;
 			}
 			clickElement(emailpreview);
-			type(Constants.el_gi_applicant_license_type, OR_PROPERTIES.getProperty("applicant_lisence_type_electrical"));
+			select(Constants.el_gi_applicant_license_type, OR_PROPERTIES.getProperty("applicant_lisence_type_electrical"));
 	 	}
 	}
 	
 	public void ownerInfo(String owner_info) {	
 		if(!owner_info.equals("")){
+			
 			test = rep.startTest("Owner Info");
 			String emailpreview = Constants.email_xpath_part1 + OR_PROPERTIES.getProperty("electrical_owner_email") + Constants.email_xpath_part2;
 			for (int i = 1; i <= 20; i++) {
 				clear(Constants.el_gi_owner_email);
-				type(Constants.el_gi_owner_email, OR_PROPERTIES.getProperty("electrical_owner_email"));
+				send(Constants.el_gi_owner_email, OR_PROPERTIES.getProperty("electrical_owner_email"));
 				wait(1);
 				if (count(emailpreview) > 0)
 					break;
 			}
 			click(emailpreview);
-			type(Constants.el_gi_owner_type, owner_info);
+			select(Constants.el_gi_owner_type, owner_info);
 			waitUntilISpinnersInvisible();
 	 	}
 	}
@@ -221,13 +222,13 @@ public class ElectricalGIPage extends TestBase {
 			String emailpreview = Constants.email_xpath_part1 + OR_PROPERTIES.getProperty("electrical_owner_email") + Constants.email_xpath_part2;
 			for (int i = 1; i <= 20; i++) {
 				clear(Constants.el_gi_owner_email);
-				type(Constants.el_gi_owner_email, OR_PROPERTIES.getProperty("electrical_owner_email"));
+				send(Constants.el_gi_owner_email, OR_PROPERTIES.getProperty("electrical_owner_email"));
 				wait(1);
 				if (count(emailpreview) > 0)
 					break;
 			}
 			click(emailpreview);
-			type(Constants.el_gi_owner_type, owner_type);
+			select(Constants.el_gi_owner_type, owner_type);
 			waitUntilISpinnersInvisible();
 	 	}
 	}
@@ -289,7 +290,14 @@ public class ElectricalGIPage extends TestBase {
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 				click(Constants.global_notification_ok_button);
 				waitInvisible(Constants.global_notification_ok_button);
-				addToProps("job_number_el", text(Constants.el_job_label).trim().substring(0, 9).trim());
+				wait(2);
+				waitVisible(Constants.el_job_label);
+/*				System.out.println(text("//span[@class='pad-left-10']"));
+				System.out.println(text("//strong[@class='ng-binding'][contains(text(),'I1')]").trim());
+				System.out.println(text("//strong[@class='ng-binding'][contains(text(),'I1')]").trim().substring(0, 8));
+				System.out.println(text("//strong[@class='ng-binding'][contains(text(),'I1')]").trim().substring(0, 9));
+				wait(22);*/
+				addToProps("job_number", text(Constants.el_job_label).trim().substring(0, 9));
 		 	}
 		}
 		
@@ -314,38 +322,29 @@ public class ElectricalGIPage extends TestBase {
 		public void previewToFile(String preview_to_file) {
 			if(!preview_to_file.equals("")){
 				System.out.println(convertedTimestamp() + " **************** " + "Preview To File GI");
-				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number_el"));
+				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
 				test = rep.startTest("Preview To File GI");
 				waitUntilISpinnersInvisible();
 				click(Constants.preview_to_file_button_el);
 				waitTime(3000L);
 				waitVisible(Constants.application_preview_label);
-				pagesource = driver.getPageSource();
-				waitTime(2000L);
-				while(!pagesource.contains("Application Preview")) {
-					click(Constants.preview_to_file_button_el);
-					pagesource = driver.getPageSource();
-					waitTime(2000L);
+				waitVisible(Constants.return_to_filing_view);
+				waitVisible("//div[@class='hidden-xs col-md-2 pull-right']");
+				if (count("//*[contains(text(),'Getting Preview... 0%')]") > 0) {
+					click(Constants.return_to_filing_view);
+					waitInvisible(Constants.return_to_filing_view);
+					wait(1);
+					click(Constants.preview_resubmit_button);
+					waitUntilISpinnersInvisible();
+					wait(2);
 				}
-				pagesource = driver.getPageSource();
-				while(pagesource.contains("Getting Preview... 0%")) {
-					click(Constants.global_cancel_button);
-					click(Constants.preview_to_file_button_el);
-					waitVisible(Constants.application_preview_label);
-					waitTime(5000L);
-					pagesource = driver.getPageSource();
-					break;
-				}
-				waitUntilElementVisible(Constants.number_of_pages, 30);
-				String text_of_pages = driver.findElement(By.xpath(Constants.number_of_pages)).getText();
-				String[] newvalue = text_of_pages.split("/  ");
-				String text_to_convert = newvalue[1];
-				Integer number_of_pages = Integer.valueOf(text_to_convert);
-				for (int i = 1; i <= number_of_pages; i++) {
+				for (int i = 1; i <= 50; i++) {
 					click(Constants.click_go_next_button);
-					waitTime(1000L);
+					wait(1);
+					if (count(Constants.final_legal_contect_checkbox) > 0)
+						break;
 				}
-				click(Constants.final_legal_contect_checkbox);
+				check(Constants.final_legal_contect_checkbox);
 				click(Constants.file_button);
 				waitTime(3000L);
 				waitUntilElementVisible(Constants.global_notification_ok_button, 60);
@@ -416,7 +415,7 @@ public class ElectricalGIPage extends TestBase {
 
 	public void subsFiling(String owner_info_subs) {
 		if (!owner_info_subs.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** " + "subsequentFiling 2 GI");
+			System.out.println(convertedTimestamp() + " **************** subsFiling");
 			test = rep.startTest("Subsequent Filing");
 			waitVisible(Constants.global_save_step_button);
 			type(Constants.el_ge1_job_description, convertedTimestamp());
@@ -426,7 +425,7 @@ public class ElectricalGIPage extends TestBase {
 			click(Constants.el_calendar_next_month_arrow);
 			click(Constants.el_gi_job_completion_last_day);
 			radio(Constants.el_gi_job_is_this_joint_venture_no);
-			type(Constants.el_gi_building_use_type, "A One Family");
+			select(Constants.el_gi_building_use_type, "A One Family");
 			applicantInfo("Y");
 			ownerInfoPay(owner_info_subs);
 			additionalInfo("Y");
@@ -435,8 +434,8 @@ public class ElectricalGIPage extends TestBase {
 	}
 		public void pAa(String paa, String description) {	
 			if(!paa.equals("")){
+				System.out.println(convertedTimestamp() + " **************** PAA GI");
 				test = rep.startTest("PAA GI");
-				System.out.println("PAA GI");
 				waitUntilISpinnersInvisible();
 				clear(Constants.el_ge1_job_description);
 				type(Constants.el_ge1_job_description, description + " "+ convertedTimestamp());

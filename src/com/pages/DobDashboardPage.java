@@ -37,6 +37,11 @@ public class DobDashboardPage extends TestBase {
 	 	    	check("//input[@ng-model='" +worktype+ "FilingWorktype']");
 	 		click(Constants.filing_next_button);
 	 		waitInvisible(Constants.filing_next_button);
+	 		if(!CONFIG.getProperty("env").contains("8085")) {
+		 		radio("//input[@ng-model='FilingIncludes'][@ng-value='1']");
+		 		click(Constants.submit_work_type_button);
+		 		waitInvisible(Constants.submit_work_type_button);
+	 		}
 //	 		radio("//input[@ng-model='FilingIncludes'][@ng-value='1']");
 //	 		click(Constants.submit_work_type_button);
 //	 		waitInvisible(Constants.submit_work_type_button);
@@ -83,6 +88,7 @@ public class DobDashboardPage extends TestBase {
 				click(Constants.filter_my_jobs_button);
 				click("//a[text()='" + data[0] + Constants.close_xpath);
 			}
+//			System.out.println(data[5]);
 			waitVisible(Constants.global_first_filter_field);
 			if (!data[1].equals(""))
 				type("//span[text()='Job Number']/following::input[@ng-model='colFilter.term']", data[1]);
@@ -266,21 +272,19 @@ public class DobDashboardPage extends TestBase {
 			reportPass("Success");
 		}
 	}
-	public void selectWorkTypeSubs(String work_type_subs) {	
-		if(!work_type_subs.equals("")){
+	public void selectWorkTypeSubs(String work_type) {	
+			String[] data = work_type.split(" :: ");
+			System.out.println(convertedTimestamp() + " ****************  selectWorkTypeSubs");
 			test = rep.startTest("selectWorkTypeSubs");
 	 		waitUntilElementVisible(Constants.el_subsequent_filing_create_button, 30);
-	 		String work_type_part1 = "//input[@ng-model='rowData.";
-	 		String work_type_part2 =  "FilingWorktype']";
-			String document_xpath =  work_type_part1 + work_type_subs + work_type_part2;
+			String document_xpath =  "//input[@ng-model='rowData." + data[0] +  "FilingWorktype']";
 			waitVisible(document_xpath);
 			click(document_xpath);
 			waitVisible(Constants.global_create_subsequent_button);
 			click(Constants.global_create_subsequent_button);
 			waitInvisible(Constants.global_create_subsequent_button);
 			waitUntilISpinnersInvisible();
-			reportPass("Success");
-		}
+			reportPass("selectWorkTypeSubs");
 	}
 	public void pAa(String paa) {	
 		if(!paa.equals("")){
@@ -612,7 +616,7 @@ public class DobDashboardPage extends TestBase {
 		if (!filter.equals("")) {
 			test = rep.startTest("Start PAA Test");
 			System.out.println(convertedTimestamp() + " **************** paa dash");
-			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
+			loginToPortal(user);
 			// click(Constants.my_work_permits_tab);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.global_first_filter_field);
@@ -640,7 +644,7 @@ public class DobDashboardPage extends TestBase {
 		if(!filter.equals("")){
 			test = rep.startTest("Subsequent Filing Test");
 			System.out.println(convertedTimestamp() + " **************** Subsequent Filing");
-			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
+			loginToPortal(user);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.global_first_filter_field);
 			filter(filter);
@@ -652,20 +656,5 @@ public class DobDashboardPage extends TestBase {
 	 		reportPass("Success");
 		}
 	}
-	public void filterJob(String filter) {	
-		if(!filter.equals("")){
-			test = rep.startTest("Filter job");
-			System.out.println(convertedTimestamp() + " **************** Filter Job");
-			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
-			waitUntilISpinnersInvisible();
-			filter(filter);
-			wait(1);
-			click(Constants.click_to_view_icon);
-			clickButton("OK");
-	 		waitInvisible(Constants.ok_button);
-	 		waitUntilISpinnersInvisible();
-//	 		addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
-		}
-		reportPass("Success");
-	}
+
 }

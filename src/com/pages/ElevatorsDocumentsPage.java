@@ -9,7 +9,8 @@ public class ElevatorsDocumentsPage extends TestBase {
 	public void documents(String upload_file) {
 		if (!upload_file.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** Documents");
-			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+//			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
 			test = rep.startTest("Documents");
 			click(Constants.documents_tab);
 			waitUntilISpinnersInvisible();

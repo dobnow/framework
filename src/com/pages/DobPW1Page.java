@@ -87,28 +87,27 @@ public class DobPW1Page extends TestBase {
 					type("//input[@id='txtPWLocWorkFloor']", work_on_floors);
 			}
 		}
-/*		//Work on Floor	Subs
-	public void XworkOnFloorsSubs(String work_on_floors, String work_type_subs, String use_type_subs) {
-		if(!work_on_floors.equals("")){
+		//Work on Floor	Subs
+	public void workOnFloorsSubs(String work_type) {
+			String[] data = work_type.split(" :: ");
 			test = rep.startTest("Work On Floors Subs");
-			if(work_type_subs.contains("Plumbing")||work_type_subs.contains("Sprinklers")||work_type_subs.contains("StandPipe")) {
+			if(work_type.contains("Plumbing")||work_type.contains("Sprinklers")||work_type.contains("StandPipe")) {
 				waitUntilElementVisible(Constants.plumbing_work_on_floors, 30);
-				type(Constants.plumbing_work_on_floors, work_on_floors);
+				type(Constants.plumbing_work_on_floors, "1");
 			}
-			if(work_type_subs.contains("Antenna")||work_type_subs.contains("SidewalkShed")||work_type_subs.contains("SupportedScaffold")||work_type_subs.contains("Sign")||work_type_subs.contains("ConstructionFence")) {
+			if(work_type.contains("Antenna")||work_type.contains("SidewalkShed")||work_type.contains("SupportedScaffold")||work_type.contains("Sign")||work_type.contains("ConstructionFence")) {
 				click(Constants.pw1_1_add_work_floors_button);
-		 		type(Constants.pw1_work_on_floors_location, "Attic");
+				select(Constants.pw1_1_work_on_floors_select_code_and_description, "Attic");
 		 		type(Constants.pw1_1_work_on_floors_floor_number_from, "1");
 		 		type(Constants.pw1_1_work_on_floors_floor_number_to, "1");
+		 		type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
 		 		click(Constants.pw1_1_work_on_floors_add_button);
 			}
-			if(work_type_subs.contains("Electrical")) {
+			if(work_type.contains("Electrical")) {
 				type(Constants.el_ge1_job_description, convertedTimestamp());
-				type(Constants.el_gi_building_use_type, use_type_subs);
+				select(Constants.el_gi_building_use_type, "A One Family");
 			}
-
-	 	}
-	}*/
+	}
 
 /*		// 2. Applicant Info
 		public void applicantInfo(String description) {	
@@ -136,7 +135,8 @@ public class DobPW1Page extends TestBase {
 				email(data[0]);
 				select(Constants.license_type_list, data[1]);
 				wait(1);
-				select(Constants.business_name_list, data[2]);			//ddlPWAppBusinessName
+				if(CONFIG.getProperty("env").contains("8085"))
+					select(Constants.business_name_list, data[2]);
 		 		type(Constants.job_description_for_new_work, user_info);
 		 		scrollToElement(Constants.global_save_step_button);
 				click(Constants.global_save_step_button);
@@ -149,11 +149,17 @@ public class DobPW1Page extends TestBase {
 		 	}
 		}
 
-	public void applicantInfoSubs(String subsequent_filing) {	
-		if(!subsequent_filing.equals("")){
+	public void applicantInfoSubs(String user_info) {	
+		if(!user_info.equals("")){
+			String[] data = user_info.split(" :: ");
 			test = rep.startTest("Applicant Info Subs");
-			email(OR_PROPERTIES.getProperty("user_email"));
-			select(Constants.license_type_list, OR_PROPERTIES.getProperty("professional_engineer"));
+			System.out.println(convertedTimestamp() + " ****************  applicantInfoSubs");
+			email(data[0]);
+			wait(1);
+			select(Constants.license_type_list, data[1]);
+			wait(1);
+//			select(Constants.business_name_list, data[2]);
+	 		type(Constants.job_description_for_new_work, user_info);
 	 	}
 	}
 

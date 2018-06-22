@@ -13,15 +13,15 @@ public class ElectricalSignaturesPage extends TestBase {
 		if(!signatures.equals("")){
 			System.out.println(convertedTimestamp() + " **************** " + "Statemments Signatures");
 //			loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
-			filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number_el"));
+			filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
 			test = rep.startTest("Statemments Signatures");
 			waitUntilISpinnersInvisible();
 			click(Constants.ss_statement_signatures_step);
-			click(Constants.el_i_undersigned);
+			check(Constants.el_i_undersigned);
 			scrollDown();
-			click(Constants.el_this_electrical_permit_involves);
-			click(Constants.el_application_involve_new_or_amended_yes);
-			click(Constants.el_this_electrical_permit_includes);
+			check(Constants.el_this_electrical_permit_involves);
+//			click(Constants.el_application_involve_new_or_amended_yes);
+			check(Constants.el_this_electrical_permit_includes);
 			click(Constants.global_save_step_button);
 			waitUntilElementVisible(Constants.global_loading_spinner_subs, 30);
 			waitUntilISpinnersInvisible();

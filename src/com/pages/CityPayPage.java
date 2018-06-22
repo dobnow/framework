@@ -44,13 +44,12 @@ public class CityPayPage extends TestBase {
 				System.out.println(convertedTimestamp() + " **************** " + "PayNowTest");
 				String parentWindowContact = driver.getWindowHandle();
 				for (int i = 1; i < 20; i++) {
+					wait(2);
 					if (pay_now.contains("Elevator")) { // ELEVATOR
 						// DO NOTHING
-					} else if (pay_now.contains("_electrical"))
-						filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),
-								JOB_NUMBER.getProperty("job_number_el"));
+					} 
 					else
-						filterJob(OR_PROPERTIES.getProperty("user_email"));
+						filterJob(user);
 					test = rep.startTest("City Pay");
 					if (pay_now.contains("Elevator")) { // ELEVATOR
 						click("//span[text()='Pay Now']");
@@ -58,8 +57,9 @@ public class CityPayPage extends TestBase {
 					} else {
 						click(Constants.pay_now_button); // REST OF WORK TYPES
 						waitUntilISpinnersInvisible();
+						wait(3);
 						waitVisible60(Constants.pay_now_confirm_button);
-						click(Constants.pay_now_confirm_button);
+						clickAndWait(Constants.pay_now_confirm_button, "//b[contains(text(),'Please do not click Back')]");
 						waitInvisible(Constants.pay_now_confirm_button);
 					}
 					wait(15);
@@ -70,20 +70,31 @@ public class CityPayPage extends TestBase {
 					}
 				}
 				for (int i = 1; i < 5; i++) {
+					
+/*					Set<String> handleswindow = driver.getWindowHandles();
+					for (String windowHandle : handleswindow) {
+						wait(1);
+						driver.switchTo().window(windowHandle);
+						driver.manage().window().maximize();
+					}*/
+					
+					
+					
 					Set<String> handles = driver.getWindowHandles();
 					Iterator<String> itr = handles.iterator();
 					String newWindow = itr.next();
 					driver.switchTo().window(newWindow);
 					driver.manage().window().maximize();
-					if (!driver.getTitle().equals("Certificate Error: Navigation Blocked"))
-						System.out.println(" You are in the wrong window");
+
 					Set<String> handleswindow = driver.getWindowHandles();
 					for (String windowHandle : handleswindow) {
 						wait(1);
 						driver.switchTo().window(windowHandle);
 						driver.manage().window().maximize();
 					}
-					if (count(Constants.continue_to_this_site_not_recommended) > 0)
+					if (!driver.getTitle().equals("Certificate Error: Navigation Blocked"))
+						System.out.println(" You are in the wrong window");
+					if (count("//a[@id='overridelink']") > 0)
 						break;
 				}
 				while (count("//a[@id='overridelink']") > 0) {
@@ -138,13 +149,12 @@ public class CityPayPage extends TestBase {
 				assertTextPresent("Receipt Details", "Receipt Details");
 				driver.close();
 				wait(2);
-				driver.switchTo().window(parentWindowContact);
-				waitUntilElementVisible(Constants.ok_button, 60);
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
-				driver.close();
 				setConfigBrowser("Chrome");
-				// initConfigurations();
+				driver.switchTo().window(parentWindowContact);
+/*				waitUntilElementVisible(Constants.ok_button, 60);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);*/
+				driver.close();
 			}
 		}
 	}

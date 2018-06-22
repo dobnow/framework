@@ -156,7 +156,7 @@ public class DobTR1Page extends TestBase {
 	public void specialInspectorSignature(String tr1) {
 		if (!tr1.equals("")) {
 //			String[] data = special_inspector.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 specialInspectorSignature");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignature");
 			for (int i = 1; i < 100; i++) {
 				filterJob(tr1_user);
 				test = rep.startTest("TR1 specialInspectorSignature");
@@ -164,6 +164,7 @@ public class DobTR1Page extends TestBase {
 				check(Constants.tr1_are_you_special_inspector);
 				check(Constants.tr1_are_you_progress_inspector);
 				click("//i[@class='fa fa-edit']"); // DO NOT CAHNGE TO LAST()
+				waitVisible("//h4[text()='Special Inspection Category']");
 				if(count(Constants.license_type_list) > 0)
 					select(Constants.license_type_list, tr1_lic); // DO NOT CAHNGE TO LAST()
 				if((count(Constants.tr1_agency_number) > 0)) {
