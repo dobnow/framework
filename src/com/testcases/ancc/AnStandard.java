@@ -81,11 +81,14 @@ public class AnStandard extends TestBase {
 			DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 			DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 			
-			CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
-			CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-			pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));
-			task_form.isuePermit(data.get("qa_administrator"));
-			successMessage(data.get("description"));
+/*			tr1.specialInspectorSignature(data.get("tr1"));
+			tr1.progressInspecSign(data.get("tr1"));
+			tr8.energyCodeProgressInspection(data.get("tr8"));
+			tr8.energyCodeSignature(data.get("tr8"));
+			signature.applicantStatementsSignature(data.get("signatures"));*/
+			signature.ownerSignature(data.get("owner_signature"));
+			docs.uploadDocuments(data.get("documents"));
+			pw1.previewToFile(data.get("preview_to_file"));
 
 			dash.selectWorkType(data.get("work_type"));
 			pw1.locationImfo(data.get("address"));
