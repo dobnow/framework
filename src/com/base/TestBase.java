@@ -139,8 +139,8 @@ public class TestBase {
 	
 	public void setConfigBrowser(String browser) {
 		try {
-			test = rep.startTest("setConfigBrowser " + browser);
-			System.out.println(convertedTimestamp() + " **************** " + "Set Config Browser to " +browser);
+//			test = rep.startTest("setConfigBrowser " + browser);
+			System.out.println(convertedTimestamp() + " **************** Set Config Browser to " +browser);
 			FileInputStream fileName = new FileInputStream(Constants.CONFIG_FILE_PATH);
 			Properties props = new Properties();
 			props.load(fileName);
@@ -291,10 +291,10 @@ public class TestBase {
 		if (CONFIG.getProperty("env").contains("antenna") || CONFIG.getProperty("env").contains("curbcut")) {
 			user = Constants.AJOETEST2;
 			owner = Constants.APPLEROME18;
-			tr1_user = Constants.DOBTESTING123;
+/*			tr1_user = Constants.DOBTESTING123;
 			tr1_lic = Constants.PROFENG;
 			tr8_user = Constants.DOBTESTING123;
-			tr8_lic = Constants.PROFENG;
+			tr8_lic = Constants.PROFENG;*/
 			pw2_user = Constants.AJOETEST2;
 			pw2_lic = Constants.PROFENG;
 		}		
@@ -339,7 +339,7 @@ public class TestBase {
 		}*/
 	}
 	
-	public void addToPropFile(String property, String value) {
+/*	public void XaddToPropFile(String property, String value) {
 		if (!property.equals("")) {
 			try {
 				test = rep.startTest("Add to Props");
@@ -358,13 +358,14 @@ public class TestBase {
 				io.printStackTrace();
 			}
 		}
-	}
+	}*/
 
 	public void navigate(String urlKey) {
 		test = rep.startTest("Test URL");
 		test.log(LogStatus.INFO, "Navigate to  " + urlKey);
 		driver.get(urlKey);
 		waitUntilISpinnersInvisible();
+		waitForPageToLoad();
 		scrollAllWayUp();
 	}
 
@@ -401,7 +402,7 @@ public class TestBase {
 		}
 		return e;
 	}
-	public WebElement getElementSoft(String locatorKey) {
+/*	public WebElement XgetElementSoft(String locatorKey) {
 		waitForPageToLoad();
 		WebElement e = null;
 		try {
@@ -409,7 +410,7 @@ public class TestBase {
 		} catch (Exception ex) {
 		}
 		return e;
-	}
+	}*/
 	public void waitVisible(String locatorKey) {
 		waitForPageToLoad();
 		waitUntilElementVisible(locatorKey, 30);
@@ -528,6 +529,13 @@ public class TestBase {
 			getElement(locatorKey).click();
 	}
 
+	public void uncheck(String locatorKey) {
+		test.log(LogStatus.INFO, "unchecking box " + locatorKey);
+		waitVisible(locatorKey);
+		if (getElement(locatorKey).isSelected())
+			getElement(locatorKey).click();
+	}
+	
 	public void type(String locatorKey, String data) {
 		clear(locatorKey);
 		test.log(LogStatus.INFO, "Typing '" + data + "'");
@@ -634,7 +642,7 @@ public class TestBase {
 		}
 	}
 	public void actionClick(String locatorKey) {
-		test.log(LogStatus.INFO, "Doubleclick " + locatorKey);
+		test.log(LogStatus.INFO, "actionClick " + locatorKey);
 		Actions action = new Actions(driver);
 		action.click(getElement(locatorKey)).perform();
 	}
@@ -977,8 +985,6 @@ public class TestBase {
 			for (int i = 1; i < 100; i++) {
 				navigate(dob_now_url);
 				test = rep.startTest("Login to portal");
-				
-				if(CONFIG.getProperty("browser").contains("IE")) {
 					if(!CONFIG.getProperty("env").contains("8085")) {
 						while (count("//a[@id='overridelink']") > 0) {
 							driver.navigate().to("javascript:document.getElementById('overridelink').click()");
@@ -988,12 +994,15 @@ public class TestBase {
 							refreshPage();
 						}
 					}
-				}
+//				}
 					
 				
 				type(Constants.welcome_email, login_email);
 				type(Constants.welcome_password, OR_PROPERTIES.getProperty("password"));
 				click(Constants.welcome_login_button);
+				
+	//			wait(33);
+				
 				wait(3);
 				while(count("//div[@class='alert alert-info']") > 0) {
 					clickButton("OK");
@@ -1001,10 +1010,12 @@ public class TestBase {
 					refreshPage();
 					type(Constants.welcome_email, login_email);
 					type(Constants.welcome_password, OR_PROPERTIES.getProperty("password"));
-					click(Constants.welcome_login_button);
-					wait(3);
+					doubleclick(Constants.welcome_login_button);
+//					wait(3);
 				}
-				doubleclick(Constants.dob_now_build_component);
+				click(Constants.dob_now_build_component);
+//				doubleclick("//div[@ng-show='enableBuildLogo']");
+				//div[@ng-show='enableBuildLogo']
 				waitInvisible(Constants.dob_now_build_component);
 				waitUntilISpinnersInvisible();
 				if (count("//input[@ng-model='colFilter.term']") > 0)
@@ -1158,15 +1169,17 @@ public class TestBase {
 	}
 
 	public void filterJob(String user_name) {
-		String search_results_xpath = Constants.found_job_part_one +JOB_NUMBER.getProperty("job_number") +Constants.found_job_part_two;
-		while (count(search_results_xpath) < 1) {
+		for (int i = 1; i <= 50; i++) {
 			loginToPortal(user_name);
 			type(Constants.job_number_filter, JOB_NUMBER.getProperty("job_number"));
+			wait(1);
+			if (count(Constants.found_job_part_one +JOB_NUMBER.getProperty("job_number")+Constants.found_job_part_two) > 0)
+				break;
 		}
 		test = rep.startTest("Filter job " + JOB_NUMBER.getProperty("job_number"));
 		if(count(Constants.click_to_view_icon) > 0) {
 			click(Constants.click_to_view_icon);
-			click(Constants.ok_button);
+			clickButton("OK");
 			waitInvisible(Constants.global_notification_ok_button);
 			waitUntilISpinnersInvisible();
 			scrollAllWayUp();
