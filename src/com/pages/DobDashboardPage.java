@@ -78,6 +78,22 @@ public class DobDashboardPage extends TestBase {
 		}
 	}
 
+	public void selectWorkTypeTp(String worktype) {
+		if (!worktype.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypeTp");
+			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
+			test = rep.startTest("Dash Select Work Type");
+			click(Constants.job_filing_button);
+			waitVisible("//span[@ng-show='!ElevatorsFilingWorktype']");
+//			System.out.println("//input[@ng-model='" + worktype + "FilingWorkType']");
+			if (count("//input[@ng-model='" + worktype + "FilingWorkType']") > 0)
+				check("//input[@ng-model='" + worktype + "FilingWorkType']");
+			click("//span[@ng-show='!ElevatorsFilingWorktype']");
+			waitInvisible("//span[@ng-show='!ElevatorsFilingWorktype']");
+			reportPass("selectWorkType");
+		}
+	}
+	
 	public void filter(String filter) {
 		if (!filter.equals("")) {
 			String[] data = filter.split(" :: ");
@@ -382,7 +398,7 @@ public class DobDashboardPage extends TestBase {
 	public void renewPermitElv(String filter) {
 		if (!filter.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** renewPermitElv");
-			loginToPortal(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			loginToPortal(user);
 			test = rep.startTest("renewPermitElv");
 			// click(Constants.my_work_permits_tab);
 			waitUntilISpinnersInvisible();
@@ -419,11 +435,15 @@ public class DobDashboardPage extends TestBase {
 	public void submitPermit(String renew) {
 		if (!renew.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** submitPermit");
-//			filterJob( OR_PROPERTIES.getProperty("elevator_applicant_email"));
+//			filterJob(user);
 			test = rep.startTest("submitPermit");
 //			click(Constants.my_work_permits_tab);
-			waitUntilISpinnersInvisible();
+//			waitUntilISpinnersInvisible();
 			driver.switchTo().defaultContent();
+			if(count(Constants.ok_button) > 0) {
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}
 			waitVisible("//button[@ng-click='initRenewPermit(frmElevatorWorkPermit)']");
 			while(count("//button[@ng-click='initRenewPermit(frmElevatorWorkPermit)'][@disabled='disabled']") > 0) {
 				refreshPage();
@@ -526,7 +546,20 @@ public class DobDashboardPage extends TestBase {
 	public void renewPermitPay(String filter) {
 		if (!filter.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** " + "PermitRenewalPay");
-			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
+			
+			wait(10);
+				if(!CONFIG.getProperty("env").contains("8085")) {
+					while (count("//a[@id='overridelink']") > 0) {
+						driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+						wait(5);
+						if (count("//a[@name='overridelink']") == 0)
+							break;
+						refreshPage();
+					}
+				}
+			
+			
+			loginToPortal(user);
 			test = rep.startTest("renewPermitPay");
 			click(Constants.my_work_permits_tab);
 			waitUntilISpinnersInvisible();
@@ -572,7 +605,7 @@ public class DobDashboardPage extends TestBase {
 	public void filePermit(String file, String assertion) {
 		if (!file.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** " + "FilePermit");
-			loginToPortal( OR_PROPERTIES.getProperty("user_email")); // permit renewal user MRCTEST003@GMAIL.COM
+			loginToPortal(user); // permit renewal user MRCTEST003@GMAIL.COM
 			test = rep.startTest("FilePermit");
 			click(Constants.my_work_permits_tab);
 			waitUntilISpinnersInvisible();

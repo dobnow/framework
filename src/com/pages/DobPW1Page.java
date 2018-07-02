@@ -159,7 +159,8 @@ public class DobPW1Page extends TestBase {
 			select(Constants.license_type_list, data[1]);
 			wait(1);
 //			select(Constants.business_name_list, data[2]);
-	 		type(Constants.job_description_for_new_work, user_info);
+			if(count(Constants.job_description_for_new_work) > 0)
+				type(Constants.job_description_for_new_work, user_info);
 	 	}
 	}
 
@@ -491,7 +492,7 @@ public class DobPW1Page extends TestBase {
 	}	
 
 	// 13. Building Characteristics
-		public void buildingCharacteristics(String characteristics) {	
+		public void buildingCharacteristics(String characteristics) {
 			if(!characteristics.equals("")){
 				test = rep.startTest("buildingCharacteristics");
 				radio(Constants.pw1_13_mixed_use_type_no);
@@ -503,6 +504,7 @@ public class DobPW1Page extends TestBase {
 				type(Constants.pw1_13_building_dwelling_units_proposed, "51");
 		 	}
 		}
+
 		// 15.Construction Equipment
 		public void constructionEquipment(String equipment) {	
 			if(!equipment.equals("")){
@@ -651,12 +653,13 @@ public class DobPW1Page extends TestBase {
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "saveForm savePW1");
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
-/*			if(count("//*[@id='frmFab4Portal']/div[1]/span[1]/b") > 0)
-				addToProps("job_number", text("//*[@id='frmFab4Portal']/div[1]/span[1]/b").trim().substring(6, 15).trim());
-			else*/			
+			wait(2);
+			if(count(Constants.el_job_label) > 0)
+				addToProps("job_number", text(Constants.el_job_label).substring(0, 10).trim());
+			else			
 				addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
-			reportPass("savePW1");
 	 	}
+		reportPass("savePW1");
 	}
 	public void savePW1_subs(String save) {	
 		if(!save.equals("")){
@@ -680,7 +683,7 @@ public class DobPW1Page extends TestBase {
 	public void previewToFile(String preview_to_file) {
 		if(!preview_to_file.equals("")){
 			System.out.println(convertedTimestamp() + " **************** " + "PreviewToFile");
-			filterJob(OR_PROPERTIES.getProperty("user_email"));
+			filterJob(user);
 			test = rep.startTest("Preview To File");
 			for (int i = 1; i <= 20; i++) {
 				click(Constants.preview_resubmit_button);

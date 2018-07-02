@@ -8,7 +8,7 @@ public class ElevatorsInsurancePage extends TestBase {
 	public void insuranceFeeInfo(String insurance_fee) {
 		if (!insurance_fee.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** insuranceFeeInfo");
-			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			filterJob(user);
 			test = rep.startTest("Insurance Fee Info");
 			click(Constants.insurance_fee_information_tab);
 			String[] data = insurance_fee.split(" :: ");

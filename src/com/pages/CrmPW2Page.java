@@ -453,6 +453,7 @@ public class CrmPW2Page extends TestBase {
 					driver.switchTo().window(tabs.get(0));
 					click(Constants.accept_document_button);
 					ifAlertExistAccept();
+					ifAlertExistAccept();
 					waitForPageToLoad();
 					wait(2);
 					driver.switchTo().frame("contentIFrame0");

@@ -120,7 +120,7 @@ public class DobTR1Page extends TestBase {
 	public void specialInspection(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 specialInspection");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspection");
 			filterJob(user);
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
@@ -153,52 +153,69 @@ public class DobTR1Page extends TestBase {
 			reportPass("Success");
 		}
 	}
+
 	public void specialInspectorSignature(String tr1) {
 		if (!tr1.equals("")) {
-//			String[] data = special_inspector.split(" :: ");
+			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignature");
+			filterJob(data[1]);
+			test = rep.startTest("TR1 specialInspectorSignature");
 			for (int i = 1; i < 100; i++) {
-				filterJob(tr1_user);
-				test = rep.startTest("TR1 specialInspectorSignature");
 				click(Constants.tr1_technical_report_step);
 				check(Constants.tr1_are_you_special_inspector);
 				check(Constants.tr1_are_you_progress_inspector);
 				click("//i[@class='fa fa-edit']"); // DO NOT CAHNGE TO LAST()
 				waitVisible("//h4[text()='Special Inspection Category']");
-				if(count(Constants.license_type_list) > 0)
-					select(Constants.license_type_list, tr1_lic); // DO NOT CAHNGE TO LAST()
-				if((count(Constants.tr1_agency_number) > 0)) {
-					type(Constants.tr1_agency_number, "005551");
-					wait(2);
-				}
+				waitVisible(Constants.tr1_agency_number);
+				wait(3);
+//				System.out.println(count(Constants.green_valid_label));
 				if (count(Constants.green_valid_label) > 0) {
 					check(Constants.tr1_i_take_responcibility);
 					check(Constants.tr1_i_understand_my_failure_to_file);
 					check(Constants.tr1_i_understand_and_agree);
 					click(Constants.tr1_save_progress_inspection_button);
 					waitVisible(Constants.ok_button);
-					verifyNotification(Constants.notification,TEXT_PROPERTIES.getProperty("tr_updated"));
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 					clickButton("OK");
 					waitInvisible(Constants.ok_button);
 					waitInvisible(Constants.tr1_save_progress_inspection_button);
 				}
-				else
-					click(Constants.cancel_button);
+				wait(2);
 				if (count(Constants.identified_yes_label) > 0)
 					break;
-
+//				System.out.println(text(Constants.license_type_list));
+				if (!text(Constants.license_type_list).contains(data[2]));
+					select(Constants.license_type_list, data[2]); // DO NOT CAHNGE TO LAST()
+				if ((count(Constants.tr1_agency_number) > 0))
+					type(Constants.tr1_agency_number, "005551");
+				wait(2);
+				check(Constants.tr1_i_take_responcibility);
+				check(Constants.tr1_i_understand_my_failure_to_file);
+				check(Constants.tr1_i_understand_and_agree);
+				click(Constants.tr1_save_progress_inspection_button);
+				waitVisible(Constants.ok_button);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+				waitInvisible(Constants.tr1_save_progress_inspection_button);
+				if (count(Constants.identified_yes_label) > 0)
+					break;
+/*				else
+					click(Constants.cancel_button);*/
 			}
-			click(Constants.upload_document_icon); // DO NOT CAHNGE TO LAST()
-			waitVisible(Constants.tr1_browse_button);
-			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
-			wait(1);
-			click(Constants.tr1_upload_button);
-			waitInvisible(Constants.tr1_please_wait_message);
-			waitVisible(Constants.tr1_upload_succesfull_message);
-			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ok_button);
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
+			if(count(Constants.upload_document_icon) > 0) {
+				click(Constants.upload_document_icon); // DO NOT CAHNGE TO LAST()
+				waitVisible(Constants.tr1_browse_button);
+				send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+				wait(1);
+				click(Constants.tr1_upload_button);
+				waitInvisible(Constants.tr1_please_wait_message);
+				waitVisible(Constants.tr1_upload_succesfull_message);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}
 			reportPass("Success");
 		}
 	}
@@ -425,11 +442,13 @@ public class DobTR1Page extends TestBase {
 		}
 	}
 
-	public void progressInspecSign(String progress_inspector_sign_upload) {
-		if (!progress_inspector_sign_upload.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 progressInspecSign");
+	public void progressInspecSign(String tr1) {
+		if (!tr1.equals("")) {
+			
+			System.out.println(convertedTimestamp() + " **************** TR1 progressInspecSign");
 			for (int i = 1; i < 100; i++) {
-				filterJob(tr1_user);
+				String[] data = tr1.split(" :: ");
+				filterJob(data[1]);
 				test = rep.startTest("TR1 progressInspecSign");
 				click(Constants.tr1_technical_report_step);
 //				check(Constants.tr1_are_you_special_inspector);
@@ -438,8 +457,8 @@ public class DobTR1Page extends TestBase {
 					wait(2);
 					click("(//i[@class='fa fa-edit'])[last()]");
 					waitVisible("//h4[text()='Progress Inspection Category']");
-					email(tr1_user);
-					select(Constants.tr1_license_type, tr1_lic);
+					email(data[1]);
+					select(Constants.tr1_license_type, data[2]);
 					check(Constants.tr1_i_take_responcibility);
 					check(Constants.tr1_i_understand_my_failure_to_file);
 					check(Constants.tr1_i_understand_and_agree);
@@ -462,15 +481,17 @@ public class DobTR1Page extends TestBase {
 				if (count(Constants.identified_yes_label) > 1)
 					break;
 			}
-			click(Constants.upload_document_icon);
-			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
-			click(Constants.tr1_upload_button);
-			waitInvisible(Constants.tr1_please_wait_message);
-			waitVisible(Constants.tr1_upload_succesfull_message);
-			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ok_button);
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
+			if(count(Constants.upload_document_icon) > 0) {
+				click(Constants.upload_document_icon);
+				send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+				click(Constants.tr1_upload_button);
+				waitInvisible(Constants.tr1_please_wait_message);
+				waitVisible(Constants.tr1_upload_succesfull_message);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}
 			reportPass("Success");
 		}
 	}
@@ -480,7 +501,7 @@ public class DobTR1Page extends TestBase {
 	public void progressInspection(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 progressInspection");
+			System.out.println(convertedTimestamp() + " **************** TR1 progressInspection");
 			filterJob(user);
 			test = rep.startTest("TR1 progressInspection");
 			click(Constants.tr1_technical_report_step);
@@ -545,7 +566,7 @@ public class DobTR1Page extends TestBase {
 	
 	public void progressInspectionSign(String progress_inspector_sign_upload) {
 		if (!progress_inspector_sign_upload.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 progressInspectionSign");
+			System.out.println(convertedTimestamp() + " **************** TR1 progressInspectionSign");
 			for (int i = 1; i < 100; i++) {
 				filterJob(tr1_user);
 				test = rep.startTest("TR1 progressInspectionSign");
@@ -596,7 +617,7 @@ public class DobTR1Page extends TestBase {
 	public void specialInspectorSignaturePlumbing(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** " + "TR1 specialInspectorSignaturePlumbing");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignaturePlumbing");
 			filterJob(data[1]);
 			test = rep.startTest("TR1 specialInspectorSignaturePlumbing");
 			click(Constants.tr1_technical_report_step);

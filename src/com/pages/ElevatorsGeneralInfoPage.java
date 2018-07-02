@@ -23,14 +23,10 @@ public class ElevatorsGeneralInfoPage extends TestBase {
 			select(Constants.select_business, "DIR BUS NAME");
 			for (int i = 1; i < 100; i++) {
 				clear(Constants.designer_email);
-				type(Constants.designer_email, OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase());
+				send(Constants.designer_email, user.toUpperCase());
 				wait(1);
-				if (count(Constants.email_xpath_part1
-						+ OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase()
-						+ Constants.email_xpath_part2) > 0) {
-					click(Constants.email_xpath_part1
-							+ OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase()
-							+ Constants.email_xpath_part2);
+				if (count(Constants.email_xpath_part1+user.toUpperCase()+Constants.close_xpath) > 0) {
+					click(Constants.email_xpath_part1+user.toUpperCase()+Constants.close_xpath);
 					break;
 				}
 			}
@@ -38,11 +34,11 @@ public class ElevatorsGeneralInfoPage extends TestBase {
 			select(Constants.designer_license_type, OR_PROPERTIES.getProperty("professional_engineer"));
 			for (int i = 1; i < 100; i++) {
 				clear(Constants.owner_email);
-				type(Constants.owner_email, OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase());
+				send(Constants.owner_email, user.toUpperCase());
 				wait(1);
-				if (count(Constants.email_xpath_part1+OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase()
+				if (count(Constants.email_xpath_part1+user.toUpperCase()
 						+ Constants.email_xpath_part2) > 0) {
-					click(Constants.email_xpath_part1+OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase()
+					click(Constants.email_xpath_part1+user.toUpperCase()
 							+ Constants.email_xpath_part2);
 					break;
 				}
@@ -84,7 +80,7 @@ public class ElevatorsGeneralInfoPage extends TestBase {
 			waitInvisible(Constants.ok_button);
 			for (int i = 1; i < 100; i++) {
 				for (int a = 1; a < 100; a++) {
-					String new_address = String.valueOf(randomNumberOf(777));
+					String new_address = String.valueOf(randomNumberOf(1777));
 					clear(Constants.search_by_house);
 					type(Constants.search_by_house, new_address);
 					clear(Constants.search_by_street);
@@ -113,7 +109,7 @@ public class ElevatorsGeneralInfoPage extends TestBase {
 					
 //					System.out.println(getElement(circle_xpath).getCssValue("background-color"));
 					if (getElement(circle_xpath).getCssValue("background-color").contains("rgba(98, 152, 40, 1)"))
-						click(checkbox_xpath);
+						check(checkbox_xpath);
 					
 					if (count("//p[@id='desc'][contains(.,'You cannot select this device')]") > 0)
 						clickButton("OK");
@@ -140,16 +136,15 @@ public class ElevatorsGeneralInfoPage extends TestBase {
 					click(Constants.global_cancel_button);
 			}
 			select(Constants.building_code, "2014 ");
-			email(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			email(user);
 			select(Constants.pw1_2_license_type, OR_PROPERTIES.getProperty("elevator_applicant_lisence_type"));
 			select(Constants.select_business, "DIR BUS NAME");
 			for (int i = 1; i < 100; i++) {
-				send(Constants.designer_email, OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase());
+				send(Constants.designer_email, user.toUpperCase());
 				wait(1);
-				if (count(Constants.email_xpath_part1
-						+ OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase()
+				if (count(Constants.email_xpath_part1+user.toUpperCase()
 						+ Constants.email_xpath_part2) > 0) {
-					click(Constants.email_xpath_part1 + OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase() + Constants.email_xpath_part2);
+					click(Constants.email_xpath_part1+user.toUpperCase()+Constants.close_xpath);
 					wait(1);
 					break;
 				}
@@ -194,8 +189,8 @@ public class ElevatorsGeneralInfoPage extends TestBase {
 	// Preview to File
 	public void previewToFile(String preview_to_file) {
 		if (!preview_to_file.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** " + "Preview ToFile");
-			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			System.out.println(convertedTimestamp() + " **************** Preview ToFile");
+			filterJob(user);
 			test = rep.startTest("Preview To File");
 			for (int i = 1; i <= 20; i++) {
 				click(Constants.preview_resubmit_button);

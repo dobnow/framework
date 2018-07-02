@@ -8,7 +8,7 @@ public class ElevatorsSignaturesPage extends TestBase {
 	public void signatures(String insurance_fee) {
 		if (!insurance_fee.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** Signatures");
-			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			filterJob(user);
 			test = rep.startTest("Signatures");
 			click(Constants.signatures_tab);
 			check(Constants.applicant_sign_elv);
@@ -27,7 +27,7 @@ public class ElevatorsSignaturesPage extends TestBase {
 	public void signaturesSignOff(String insurance_fee) {
 		if (!insurance_fee.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** Signatures");
-			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			filterJob(user);
 			test = rep.startTest("Signatures");
 			click(Constants.signatures_tab);
 			check(Constants.applicant_sign_elv);

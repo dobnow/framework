@@ -366,6 +366,8 @@ public class CrmTaskFormPage extends TestBase {
 					driver.switchTo().window(tabs.get(0));
 					driver.switchTo().defaultContent();
 					click(Constants.accept_document_button);
+					wait(1);
+					ifAlertExistAccept();
 					ifAlertExistAccept();
 					wait(1);
 					waitVisible(Constants.accept_document_button);
@@ -618,7 +620,7 @@ public class CrmTaskFormPage extends TestBase {
 				test.log(LogStatus.INFO, data[0]+ " Assign to " +data[1]);
 				waitForPageToLoad();
 				driver.switchTo().frame("contentIFrame0");
-				scrollTo(Constants.span_text + "Parent Team" + Constants.close_xpath);
+//				scrollTo(Constants.span_text + "Parent Team" + Constants.close_xpath);
 				scrollTo(Constants.cpe_acpe_actions_field);
 				click(Constants.cpe_acpe_actions_field);
 				click(Constants.cpe_acpe_find_team_image);

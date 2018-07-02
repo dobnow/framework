@@ -52,17 +52,21 @@ public class CityPayPage extends TestBase {
 						filterJob(user);
 					test = rep.startTest("City Pay");
 					if (pay_now.contains("Elevator")) { // ELEVATOR
-						click("//span[text()='Pay Now']");
+						clickAndWait("//span[text()='Pay Now']", "//button[text()='Yes']");
+//						click("//span[text()='Pay Now']");
 						clickButton("Yes");
+						waitInvisible("//button[text()='Yes']");
 					} else {
-						click(Constants.pay_now_button); // REST OF WORK TYPES
+						clickAndWait(Constants.pay_now_button, Constants.pay_now_confirm_button);
+//						click(Constants.pay_now_button); // REST OF WORK TYPES
 						waitUntilISpinnersInvisible();
 						wait(3);
 						waitVisible60(Constants.pay_now_confirm_button);
-						clickAndWait(Constants.pay_now_confirm_button, "//b[contains(text(),'Please do not click Back')]");
+						doubleclick(Constants.pay_now_confirm_button);
+//						clickAndWait(Constants.pay_now_confirm_button, "//b[contains(text(),'Please do not click Back')]");
 						waitInvisible(Constants.pay_now_confirm_button);
 					}
-					wait(15);
+					wait(5);
 					if ((driver.getWindowHandles().size()) > 1) {
 						// driver.close();
 						wait(1);
@@ -106,8 +110,10 @@ public class CityPayPage extends TestBase {
 				}
 				waitVisible60(Constants.pay_continue_button);
 				if (pay_now.contains("credit")) {
-					click("//a[@title='Pay by Credit Card']");
-					waitInvisible("//p[@class='intro'][contains(.,'pay by electronic check')]");
+//					click("//a[@title='Pay by Credit Card']"); 
+					clickAndWait("//a[@title='Pay by Credit Card']", "//p[@class='intro'][contains(.,'charged a service fee')]");
+					
+//					waitInvisible("//p[@class='intro'][contains(.,'pay by electronic check')]");
 					waitVisible("//p[@class='intro'][contains(.,'Credit and debit card payments')]");
 					type(Constants.pay_first_name_cc, "Bob");
 					type(Constants.pay_last_name_cc, "Smith");
@@ -146,15 +152,27 @@ public class CityPayPage extends TestBase {
 				waitInvisible60(Constants.pay_next_button);
 				click(Constants.pay_now_button_final);
 				waitInvisible60(Constants.pay_now_button_final);
+				
+				wait(10);
+				if(!CONFIG.getProperty("env").contains("8085")) {
+					while (count("//a[@id='overridelink']") > 0) {
+						driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+						wait(5);
+						if (count("//a[@name='overridelink']") == 0)
+							break;
+						refreshPage();
+					}
+				}
+				
 				assertTextPresent("Receipt Details", "Receipt Details");
 				driver.close();
 				wait(2);
 				setConfigBrowser("Chrome");
 				driver.switchTo().window(parentWindowContact);
-/*				waitUntilElementVisible(Constants.ok_button, 60);
+				waitVisible(Constants.ok_button);
 				clickButton("OK");
-				waitInvisible(Constants.ok_button);*/
-				driver.close();
+				waitInvisible(Constants.ok_button);
+//				driver.close();
 			}
 		}
 	}
