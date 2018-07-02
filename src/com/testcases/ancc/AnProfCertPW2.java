@@ -62,7 +62,7 @@ public class AnProfCertPW2 extends TestBase {
 		return TestUtil.getData(testname, xlsx);
 	}
 
-	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 10)
+	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
@@ -111,7 +111,7 @@ public class AnProfCertPW2 extends TestBase {
 			tr8.energyCodeProgressInspection(data.get("tr8"));
 			tr8.energyCodeSignature(data.get("tr8"));
 			pw2.workPermit(data.get("pw2"));
-			pw2.uploadDocuments(data.get("pw2_documents"));
+//			pw2.uploadDocuments(data.get("pw2_documents"));
 			signature.applicantStatementsSignature(data.get("signatures"));
 			signature.ownerSignature(data.get("owner_signature"));
 			docs.uploadDocuments(data.get("documents"));
@@ -119,7 +119,7 @@ public class AnProfCertPW2 extends TestBase {
 		}
 	}
 	
-	// CPE VIEW-ACCEPT DOCS
+/*	// CPE VIEW-ACCEPT DOCS
 	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
  	public void ProfSertQaSuperviserAcceptDocsTest(Hashtable<String,String> data) {
  		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
@@ -152,5 +152,5 @@ public class AnProfCertPW2 extends TestBase {
  			CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
  			task_form.isuePermit(data.get("prof_sert_qa_administrator"));
  			successMessage(data.get("description"));
-  		}	
+  		}	*/
 }

@@ -17,6 +17,7 @@ import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
 import com.pages.DobPW2Page;
+import com.base.TestBase;
 import com.pages.CrmTaskFormPage;
 import com.pages.DobSOWPage;
 import com.pages.DobPW3Page;
@@ -24,16 +25,12 @@ import com.pages.DobDS1Page;
 import com.pages.DobTR1Page;
 import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
-import com.base.TestBase;
-import com.pages.CrmPW2Page;
-import com.pages.CrmTR1Page;
-import com.pages.CrmTR8Page;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class AnStandard extends TestBase {
+public class AnQaFailed extends TestBase {
 	
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCases);
-	String testname = "AnStandard";
+	String testname = "AnQaFailed";
 	
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -58,7 +55,7 @@ public class AnStandard extends TestBase {
 
 	@DataProvider
 	public Object[][] getTestData() {
-		return TestUtil.getData(testname, xlsx);
+		return TestUtil.getData("AnQaFailed", xlsx);
 	}
 
 	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
@@ -115,83 +112,48 @@ public class AnStandard extends TestBase {
 		}
 	}
 	
-	
-	
-	// ASSIGN TO TEAM
-	@Test(priority = 1, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
-	public void CentralAssigner(Hashtable<String, String> data) {
+/*	// CPE VIEW-ACCEPT DOCS
+	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
+	public void CPEAcceptDocsTest(Hashtable<String, String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.centralAssigner(data.get("cpe_acpe"));
+		task_form.viewAcceptDocuments(data.get("chief_plan_examiner"));
 	}
 
-	// CPE VIEW-ACCEPT DOCS ASSIGN TO PE
-	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"CentralAssigner"})
-	public void CpeAssign(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.cpeAssign(data.get("chief_plan_examiner"));
-	}
-	
-	// PE 2 ACTION
-	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"CpeAssign"})
-	public void secondaryPeAction(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.viewAcceptDocuments(data.get("secondary_pe"));
-	}
-	// PE 1 ACTION
-	@Test(priority = 4, dataProvider = "getTestData", dependsOnMethods = {"CpeAssign"})
-	public void primaryPeAction(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.peAction(data.get("primary_pe"));
-	}
-	// CPE ACTION
-	@Test(priority = 5, dataProvider = "getTestData", dependsOnMethods = {"primaryPeAction","secondaryPeAction"})
-	public void CpeAction(Hashtable<String, String> data) {
+	// CPE ASSIGN
+	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"CPEAcceptDocsTest"})
+	public void ChiefPlanExaminerTest(Hashtable<String, String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
 		task_form.cpeAction(data.get("chief_plan_examiner"));
 	}
-	
+
+	// PE ACTION
+	@Test(priority = 4, dataProvider = "getTestData", dependsOnMethods = {"ChiefPlanExaminerTest"})
+	public void PlanExaminerTest(Hashtable<String, String> data) {
+		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
+		task_form.peAction(data.get("plan_examiner"));
+	}
+
 	// PW2-2
-	@Test(priority = 16, dataProvider = "getTestData", dependsOnMethods = {"CpeAction"})
+	@Test(priority = 5, dataProvider = "getTestData", dependsOnMethods = {"PlanExaminerTest"})
 	public void WorkPermit2Test(Hashtable<String, String> data) {
 		DobPW2Page pw2 = PageFactory.initElements(driver, DobPW2Page.class);
 		pw2.workPermit(data.get("pw2_2"));
 //		pw2.uploadDocuments(data.get("pw2_2_documents"));
 	}
 
-	// QA SUPERVISER
-	@Test(priority = 17, dataProvider = "getTestData", dependsOnMethods = {"WorkPermit2Test"})
+	// CRM QA SUPERVISER
+	@Test(priority = 6, dataProvider = "getTestData", dependsOnMethods={ "WorkPermit2Test"})
 	public void QaSuperviserTest(Hashtable<String, String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		CrmTR1Page crmtr1 = PageFactory.initElements(driver, CrmTR1Page.class);
-		CrmTR8Page crmtr8 = PageFactory.initElements(driver, CrmTR8Page.class);
-//		task_form.viewAcceptDocuments(data.get("qa_superviser"));
-		crmtr1.viewAcceptTR1Fuel(data.get("qa_superviser"), data.get("accept_tr"));
-		crmtr1.viewAcceptTR1Fina(data.get("qa_superviser"), data.get("accept_tr"));
-		crmtr8.viewAcceptTR8PDocs(data.get("qa_superviser"), data.get("accept_tr"));
-		task_form.qaSuperviser(data.get("qa_superviser"));
+		task_form.assignTo(data.get("qa_superviser"));
 	}
 
-	// QA ADMIN ACCEPT PERMIT DOCUMENTSS / ISSUE PERMIT
-	@Test(priority = 18, dataProvider = "getTestData", dependsOnMethods = {"QaSuperviserTest"})
-	public void QaAdministratorAcceptPW2Test(Hashtable<String, String> data) {
-		
-		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
+	// QA FAILED
+	@Test(priority = 7, dataProvider = "getTestData", dependsOnMethods={ "QaSuperviserTest"})
+	public void QaFailedTest(Hashtable<String, String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));
-		task_form.isuePermit(data.get("qa_administrator"));
+		task_form.qaFailed(data.get("qa_administrator"));
 		successMessage(data.get("description"));
-		
-/*		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
-		pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));*/
-		
-	}
+	}*/
 
-/*	// ISSUE PERMIT
-	@Test(priority = 19, dataProvider = "getTestData", dependsOnMethods = {"QaAdministratorAcceptPW2Test"})
-	public void IssuePermitTest(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.isuePermit(data.get("qa_administrator"));
-		successMessage(data.get("description"));
-	}
-*/
 }

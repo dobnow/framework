@@ -77,7 +77,7 @@ public class AnSubs extends TestBase {
 			dash.selectWorkTypeSubs(data.get("work_type"));
 			pw1.workOnFloorsSubs(data.get("work_type"));
 			pw1.applicantInfoSubs(data.get("user_info"));
-			pw1.buildingCharacteristics("building_charcteristics");
+			pw1.buildingCharacteristics(data.get("building_charcteristics"));
 			pw1.savePW1("Y");
 			successMessage(data.get("description"));
 			wait(3);			

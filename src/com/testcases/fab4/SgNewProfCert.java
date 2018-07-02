@@ -71,6 +71,9 @@ public class SgNewProfCert extends TestBase {
 		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
+		
+
+		
 		dash.selectWorkType(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
 		type(Constants.pw1_1_apt_suite_number, testname);

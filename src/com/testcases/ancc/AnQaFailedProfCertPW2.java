@@ -30,7 +30,7 @@ import com.pages.DobSignaturesPage;
 public class AnQaFailedProfCertPW2 extends TestBase {	
 	
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCases);
-	String testname = "AnProfCertPW2QaFailed";
+	String testname = "AnQaFailedProfCertPW2";
 
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -105,7 +105,7 @@ public class AnQaFailedProfCertPW2 extends TestBase {
 			tr8.energyCodeProgressInspection(data.get("tr8"));
 			tr8.energyCodeSignature(data.get("tr8"));
 			pw2.workPermit(data.get("pw2"));
-			pw2.uploadDocuments(data.get("pw2_documents"));
+//			pw2.uploadDocuments(data.get("pw2_documents"));
 			signature.applicantStatementsSignature(data.get("signatures"));
 			signature.ownerSignature(data.get("owner_signature"));
 			docs.uploadDocuments(data.get("documents"));
@@ -113,7 +113,7 @@ public class AnQaFailedProfCertPW2 extends TestBase {
 		}
 	}
 	
-	// CPE VIEW-ACCEPT DOCS
+/*	// CPE VIEW-ACCEPT DOCS
 	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
  	public void ProfSertQaSuperviserAssignToTest(Hashtable<String,String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
@@ -125,5 +125,5 @@ public class AnQaFailedProfCertPW2 extends TestBase {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
 		task_form.qaFailed(data.get("prof_sert_qa_administrator"));
 		successMessage(data.get("description"));
-	}
+	}*/
 }

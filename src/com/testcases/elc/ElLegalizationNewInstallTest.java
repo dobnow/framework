@@ -94,6 +94,7 @@ public class ElLegalizationNewInstallTest extends TestBase {
 	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"GI"})
 	public void PayNow(Hashtable<String, String> data) {
 		CityPayPage pay = PageFactory.initElements(driver, CityPayPage.class);
+		setConfigBrowser("IE");
 		pay.cityPay(data.get("pay_now"));
 	}
 		

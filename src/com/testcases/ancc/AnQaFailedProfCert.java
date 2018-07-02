@@ -110,7 +110,7 @@ public class AnQaFailedProfCert extends TestBase {
 		}
 	}
 	
-	// CPE VIEW-ACCEPT DOCS
+/*	// CPE VIEW-ACCEPT DOCS
 	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
 	public void ProfSertQaSuperviserAcceptDocsTest(Hashtable<String, String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
@@ -136,7 +136,7 @@ public class AnQaFailedProfCert extends TestBase {
 	public void WorkPermit2Test(Hashtable<String, String> data) {
 		DobPW2Page pw2 = PageFactory.initElements(driver, DobPW2Page.class);
 		pw2.workPermit(data.get("pw2_2"));
-		pw2.uploadDocuments(data.get("pw2_2_documents"));
+//		pw2.uploadDocuments(data.get("pw2_2_documents"));
 	}
 
 	// CRM QA SUPERVISER
@@ -151,5 +151,5 @@ public class AnQaFailedProfCert extends TestBase {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
 		task_form.qaFailed(data.get("qa_administrator"));
 		successMessage(data.get("description"));
-	}
+	}*/
 }

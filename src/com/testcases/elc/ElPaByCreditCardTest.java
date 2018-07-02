@@ -78,7 +78,7 @@ public class ElPaByCreditCardTest extends TestBase {
 		gi.saveGI(data.get("save_gi"));
 		sow.workDescription(data.get("sow"));
 		setConfigBrowser("IE");
-		initConfigurations();
+//		initConfigurations();
 	}
 
 	// PAY NOW / CITY PAY

@@ -87,7 +87,7 @@ public class CcProfCertPW2 extends TestBase {
 		pw1.siteCharacteristics(data.get("site_characteristics"));
 		pw1.savePW1(data.get("save_pw1"));
  		pw2.workPermit(data.get("pw2"));
- 		pw2.uploadDocuments(data.get("pw2_documents"));
+// 		pw2.uploadDocuments(data.get("pw2_documents"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));

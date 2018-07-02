@@ -41,8 +41,6 @@ public class ElLegalizationMinorTest extends TestBase {
 
 	@AfterSuite
 	public void closeChromeDriver() {
-		System.out.println("test");
-		setConfigBrowser("Chrome");
 		killDriver();
 	}
 	

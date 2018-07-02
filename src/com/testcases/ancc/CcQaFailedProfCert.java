@@ -114,7 +114,7 @@ public class CcQaFailedProfCert extends TestBase {
 	public void WorkPermit2Test(Hashtable<String, String> data) {
 		DobPW2Page pw2 = PageFactory.initElements(driver, DobPW2Page.class);
 		pw2.workPermit(data.get("pw2_2"));
-		pw2.uploadDocuments(data.get("pw2_2_documents"));
+//		pw2.uploadDocuments(data.get("pw2_2_documents"));
 	}
 	// CRM QA SUPERVISER
 	@Test(priority = 9, dataProvider = "getTestData", dependsOnMethods = { "WorkPermit2Test" })

@@ -96,7 +96,6 @@ public class AnIncomplete extends TestBase {
 			pw1.complianceNYCECC(data.get("nycecc"));
 			pw1.zonningCharacteristics(data.get("dist_overlay_spec_dist_map"));
 			pw1.buildingCharacteristics(data.get("building_charcteristics"));
-//			pw1.curbCutDescription(data.get("curb_cut_description"));
 			pw1.fireProtectionEquipment(data.get("fire_equipment"));
 			pw1.siteCharacteristics(data.get("site_characteristics"));
 			pw1.savePW1(data.get("save_pw1"));
@@ -160,7 +159,7 @@ public class AnIncomplete extends TestBase {
 	public void WorkPermit2Test(Hashtable<String, String> data) {
 		DobPW2Page pw2 = PageFactory.initElements(driver, DobPW2Page.class);
 		pw2.workPermit(data.get("pw2_2"));
-		pw2.uploadDocuments(data.get("pw2_2_documents"));
+//		pw2.uploadDocuments(data.get("pw2_2_documents"));
 	}
 
 	// CRM QA SUPERVISER
